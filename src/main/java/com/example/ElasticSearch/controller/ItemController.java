@@ -3,10 +3,9 @@ package com.example.ElasticSearch.controller;
 import com.example.ElasticSearch.model.Item;
 import com.example.ElasticSearch.service.ItemService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/items")
@@ -21,4 +20,17 @@ private final ItemService itemService;
 {
     return itemService.itemCreate(item);
 }
+
+@PostMapping("/init-index")
+    public Item addItemFromJson()
+{
+    return itemService.addItemFromJson();
+}
+
+    @GetMapping("/getAllData/{indexName}")
+    public List<Item> getAllData(@PathVariable String indexName)
+    {
+
+        return itemService.getAllDataFromIndex(indexName);
+    }
 }
